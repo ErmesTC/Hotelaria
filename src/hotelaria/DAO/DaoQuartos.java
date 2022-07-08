@@ -60,10 +60,10 @@ public class DaoQuartos extends DAO {
     public boolean salvar(Quartos quartos) {
         try {
             String sql = "INSERT INTO public.quartos(\n"
-                    + "	id, tipo, ocupados, n_camas, valor)\n"
-                    + "	VALUES (?, ?, ?, ?, ?);";
+                    + "	id, tipo, ocupados, n_camas, valor, estadua_id)\n"
+                    + "	VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = criarPrepareStatement(sql);
-            quartos.setId(gerarProximoId("cliente"));
+            quartos.setId(gerarProximoId("quartos"));
             ps.setInt(1, quartos.getId());
             ps.setString(2, quartos.getTipo());
             ps.setString(3, quartos.getOcupados());
@@ -81,7 +81,7 @@ public class DaoQuartos extends DAO {
     public boolean atualizar(Quartos quartos) {
         try {
             String sql = "UPDATE public.quartos\n"
-                    + "	SET  tipo=?, ocupados=?, n_camas=?, valor=?, fk_estadia_id=?\n"
+                    + "	SET  tipo=?, ocupados=?, n_camas=?, valor=?, estadia_id=?\n"
                     + "	WHERE id = " + quartos.getId();
 
             PreparedStatement ps = criarPrepareStatement(sql);
@@ -108,7 +108,7 @@ public class DaoQuartos extends DAO {
             executarSql(sql);
             return true;
         } catch (SQLException e) {
-            System.out.println("Falha ao deletar funcionario\n" + e.getMessage());
+            System.out.println("Falha ao deletar quartos\n" + e.getMessage());
             return false;
         }
     }

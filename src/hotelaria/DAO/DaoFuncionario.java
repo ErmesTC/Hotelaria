@@ -69,7 +69,7 @@ public class DaoFuncionario extends DAO {
                     + "	id, cargo, ctps, nome, cpf, rg, data_nasc, telefone)\n"
                     + "	VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = criarPrepareStatement(sql);
-            funcionario.setId(gerarProximoId("cliente"));
+            funcionario.setId(gerarProximoId("funcionario"));
             ps.setInt(1, funcionario.getId());
             ps.setString(2, funcionario.getCargo());
             ps.setString(3, funcionario.getCtps());
