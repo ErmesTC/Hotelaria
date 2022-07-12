@@ -36,7 +36,7 @@ public class DaoFuncionario extends DAO {
 
     }
 
-    public Funcionario carregarFuncionarioeId(int idFuncionario) {
+    public Funcionario carregarFuncionarioId(int idFuncionario) {
         Funcionario funcionario = null;
 
         try {

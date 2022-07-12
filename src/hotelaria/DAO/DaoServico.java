@@ -1,5 +1,6 @@
 package hotelaria.DAO;
 
+import hotelaria.Quartos;
 import hotelaria.Servico;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +22,8 @@ public class DaoServico extends DAO {
                 Servico.setTipo(rs.getString("tipo"));
                 Servico.setValor(rs.getString("valor"));
                 Servico.setDescricao(rs.getString("descricao"));
+                Servico.getQuartos().setId(rs.getInt("quartos_id"));
+                Servico.getFuncionario().setId(rs.getInt("funcionario_id"));
 
                 servico.add(Servico);
 
@@ -46,6 +49,8 @@ public class DaoServico extends DAO {
                 servico.setTipo(rs.getString("tipo"));
                 servico.setValor(rs.getString("valor"));
                 servico.setDescricao(rs.getString("descricao"));
+                servico.getQuartos().setId(rs.getInt("quartos_id"));
+                servico.getFuncionario().setId(rs.getInt("funcionario_id"));
 
             }
         } catch (SQLException e) {
@@ -58,7 +63,7 @@ public class DaoServico extends DAO {
     public boolean salvar(Servico servico) {
         try {
             String sql = "INSERT INTO public.servico(\n"
-                    + "	id, tipo, valor, descricao, quartos__id, funcionario_id)\n"
+                    + "	id, tipo, valor, descricao, quartos_id, funcionario_id)\n"
                     + "	VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = criarPrepareStatement(sql);
             servico.setId(gerarProximoId("servico"));
@@ -66,6 +71,8 @@ public class DaoServico extends DAO {
             ps.setString(2, servico.getTipo());
             ps.setString(3, servico.getValor());
             ps.setString(4, servico.getDescricao());
+            ps.setInt(5, servico.getQuartos().getId());
+            ps.setInt(6, servico.getFuncionario().getId());
 
             ps.executeUpdate();
             return true;
@@ -78,13 +85,15 @@ public class DaoServico extends DAO {
     public boolean atualizar(Servico servico) {
         try {
             String sql = "UPDATE public.servico\n"
-                    + "	SET id=?, tipo=?, valor=?, descricao=?, quartos__id=?, funcionario_id=?\n"
+                    + "	SET id=?, tipo=?, valor=?, descricao=?, quartos_id=?, funcionario_id=?\n"
                     + "	WHERE  id = " + servico.getId();
 
             PreparedStatement ps = criarPrepareStatement(sql);
             ps.setString(1, servico.getTipo());
             ps.setString(2, servico.getValor());
-            ps.setString(2, servico.getDescricao());
+            ps.setString(3, servico.getDescricao());
+            ps.setInt(4, servico.getQuartos().getId());
+            ps.setInt(5, servico.getFuncionario().getId());
 
             ps.executeUpdate();
             return true;

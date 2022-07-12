@@ -8,8 +8,13 @@ public class Servico {
     private String tipo;
     private String valor;
     private String descricao;
+    private Quartos quartos;
+    private Funcionario funcionario;
+      
 
     public Servico() {
+        quartos = new Quartos();
+        funcionario = new Funcionario();
     }
 
     public Integer getId() {
@@ -42,6 +47,22 @@ public class Servico {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Quartos getQuartos() {
+        return quartos;
+    }
+
+    public void setQuartos(Quartos quartos) {
+        this.quartos = quartos;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
     
     

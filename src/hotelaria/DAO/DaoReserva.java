@@ -54,8 +54,8 @@ public class DaoReserva extends DAO {
     public boolean salvar(Reserva reserva) {
         try {
             String sql = "INSERT INTO public.reserva(\n"
-                    + "	id, valor, cliente_id, estadia_id)\n"
-                    + "	VALUES (?, ?, ?, ?)";
+                    + "	id, valor)\n"
+                    + "	VALUES (?, ?)";
             PreparedStatement ps = criarPrepareStatement(sql);
             reserva.setId(gerarProximoId("reserva"));
             ps.setInt(1, reserva.getId());
@@ -72,7 +72,7 @@ public class DaoReserva extends DAO {
     public boolean atualizar(Reserva reserva) {
         try {
             String sql = "UPDATE public.reserva\n"
-                    + "	SET id=?, valor=?, cliente_id=?, estadia_id=?\n"
+                    + "	SET id=?, valor=?\n"
                     + "	WHERE  id = " + reserva.getId();
 
             PreparedStatement ps = criarPrepareStatement(sql);

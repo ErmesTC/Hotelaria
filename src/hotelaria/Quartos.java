@@ -8,8 +8,14 @@ public class Quartos {
     private String ocupados;
     private String n_camas;
     private String valor;
+    private Estadia estadia;
+    private Cliente cliente;
+    private Reserva reserva;
 
     public Quartos() {
+        estadia = new Estadia();
+        cliente = new Cliente();
+        reserva = new Reserva();
     }
 
     public Integer getId() {
@@ -50,6 +56,30 @@ public class Quartos {
 
     public void setValor(String valor) {
         this.valor = valor;
+    }
+
+    public Estadia getEstadia() {
+        return estadia;
+    }
+
+    public void setEstadia(Estadia estadia) {
+        this.estadia = estadia;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Reserva getReserva() {
+        return reserva;
+    }
+
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
     }
     
     

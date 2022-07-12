@@ -22,6 +22,11 @@ public class DaoQuartos extends DAO {
                 Quartos.setValor(rs.getString("valor"));
                 Quartos.setOcupados(rs.getString("ocupados"));
                 Quartos.setN_camas(rs.getString("n_camas"));
+                Quartos.getCliente().setId(rs.getInt("cliente_id"));
+                Quartos.getEstadia().setId(rs.getInt("estadia_id"));
+                Quartos.getReserva().setId(rs.getInt("reserva_id"));
+                
+                
 
                 quartos.add(Quartos);
 
@@ -48,6 +53,9 @@ public class DaoQuartos extends DAO {
                 quartos.setOcupados(rs.getString("ocupados"));
                 quartos.setN_camas(rs.getString("n_camas"));
                 quartos.setValor(rs.getString("valor"));
+                quartos.getCliente().setId(rs.getInt("cliente_id"));
+                quartos.getEstadia().setId(rs.getInt("estadia_id"));
+                quartos.getReserva().setId(rs.getInt("reserva_id"));
 
             }
         } catch (SQLException e) {
@@ -60,8 +68,8 @@ public class DaoQuartos extends DAO {
     public boolean salvar(Quartos quartos) {
         try {
             String sql = "INSERT INTO public.quartos(\n"
-                    + "	id, tipo, ocupados, n_camas, valor, estadua_id)\n"
-                    + "	VALUES (?, ?, ?, ?, ?, ?)";
+                    + "	id, tipo, ocupados, n_camas, valor, estadia_id, cliente_id, reserva_id)\n"
+                    + "	VALUES (?, ?, ?, ?, ?, ?, ? , ?)";
             PreparedStatement ps = criarPrepareStatement(sql);
             quartos.setId(gerarProximoId("quartos"));
             ps.setInt(1, quartos.getId());
@@ -69,6 +77,9 @@ public class DaoQuartos extends DAO {
             ps.setString(3, quartos.getOcupados());
             ps.setString(4, quartos.getN_camas());
             ps.setString(5, quartos.getValor());
+            ps.setInt(6, quartos.getEstadia().getId());
+            ps.setInt(7, quartos.getCliente().getId());
+            ps.setInt(8, quartos.getReserva().getId());
 
             ps.executeUpdate();
             return true;
@@ -81,7 +92,7 @@ public class DaoQuartos extends DAO {
     public boolean atualizar(Quartos quartos) {
         try {
             String sql = "UPDATE public.quartos\n"
-                    + "	SET  tipo=?, ocupados=?, n_camas=?, valor=?, estadia_id=?\n"
+                    + "	SET  tipo=?, ocupados=?, n_camas=?, valor=?, estadia_id=?, cliente_id=?, reserva_id=?\n"
                     + "	WHERE id = " + quartos.getId();
 
             PreparedStatement ps = criarPrepareStatement(sql);
@@ -89,6 +100,9 @@ public class DaoQuartos extends DAO {
             ps.setString(2, quartos.getOcupados());
             ps.setString(3, quartos.getN_camas());
             ps.setString(4, quartos.getValor());
+            ps.setInt(5, quartos.getEstadia().getId());
+            ps.setInt(6, quartos.getCliente().getId());
+            ps.setInt(7, quartos.getReserva().getId());
             
            
 

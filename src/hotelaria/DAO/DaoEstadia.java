@@ -56,8 +56,8 @@ public class DaoEstadia extends DAO {
     public boolean salvar(Estadia estadia) {
         try {
             String sql = "INSERT INTO public.estadia(\n"
-                    + "	id, data_inicio, data_termino, cliente_id)\n"
-                    + "	VALUES (?, ?, ?, ?)";
+                    + "	id, data_inicio, data_termino)\n"
+                    + "	VALUES (?, ?, ?)";
             PreparedStatement ps = criarPrepareStatement(sql);
             estadia.setId(gerarProximoId("estadia"));
             ps.setInt(1, estadia.getId());
@@ -75,7 +75,7 @@ public class DaoEstadia extends DAO {
     public boolean atualizar(Estadia estadia) {
         try {
             String sql = "UPDATE public.estadia\n"
-                    + "	SET id=?, data_inicio=?, data_termino=?, cliente_id=?\n"
+                    + "	SET id=?, data_inicio=?, data_termino=?\n"
                     + "	WHERE  id = " + estadia.getId();
 
             PreparedStatement ps = criarPrepareStatement(sql);
