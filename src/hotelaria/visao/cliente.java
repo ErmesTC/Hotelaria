@@ -34,9 +34,15 @@ public class cliente extends javax.swing.JFrame {
         jTextFieldcpf.setText(controle.getCliente().getCpf());
         jTextFieldrg.setText(controle.getCliente().getRg());
         jTextFieldtelefone.setText(controle.getCliente().getTelefone());
-        jComboBoxdia.setSelectedItem(controle.getCliente().getData_nasc());
-        jComboBoxmes.setSelectedItem(controle.getCliente().getData_nasc());
-        jComboBoxano.setSelectedItem(controle.getCliente().getData_nasc());
+        
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(controle.getCliente().getData_nasc());
+        int dia = cal.get(Calendar.DAY_OF_MONTH);
+        int mes = cal.get(Calendar.MONTH)+1;
+        int ano = cal.get(Calendar.YEAR);
+        jComboBoxdia.setSelectedItem(""+dia);
+        jComboBoxmes.setSelectedItem(""+mes);
+        jComboBoxano.setSelectedItem(""+ano);
     
     }
     
@@ -169,7 +175,7 @@ public class cliente extends javax.swing.JFrame {
             controle.getCliente().setTelefone(jTextFieldtelefone.getText());
 
             int dia = Integer.parseInt(jComboBoxdia.getSelectedItem().toString());
-            int mes = Integer.parseInt(jComboBoxmes.getSelectedItem().toString());
+            int mes = Integer.parseInt(jComboBoxmes.getSelectedItem().toString())-1;
             int ano = Integer.parseInt(jComboBoxano.getSelectedItem().toString());
             Calendar cal = Calendar.getInstance();
             cal.set(ano, mes, dia);
