@@ -1,18 +1,19 @@
 
 package hotelaria.lista;
 
-import hotelaria.Controle.ControleQuartos;
-import hotelaria.Quartos;
-import hotelaria.visao.quartos;
+import hotelaria.Controle.ControleServico;
+import hotelaria.Servico;
+import hotelaria.visao.servico;
 import javax.swing.JOptionPane;
 
 
-public class listaQuartos extends javax.swing.JFrame {
+public class listaServico extends javax.swing.JFrame {
 
-    private ControleQuartos controle;
+    
+    private ControleServico controle;
 
-    public listaQuartos() {
-        controle = new ControleQuartos();
+    public listaServico() {
+        controle = new ControleServico();
         initComponents();
 
         setLocationRelativeTo(null);
@@ -31,29 +32,16 @@ public class listaQuartos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTablelista = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jButtonCadastroNovo = new javax.swing.JButton();
         jButtoneditar = new javax.swing.JButton();
         jButtonRemover = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTablelista = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTablelista.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTablelista);
-
-        jLabel1.setText("Cadastro Quartos");
+        jLabel1.setText("Cadastro Cliente");
 
         jButtonCadastroNovo.setText("cadastro novo");
         jButtonCadastroNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +63,19 @@ public class listaQuartos extends javax.swing.JFrame {
                 jButtonRemoverActionPerformed(evt);
             }
         });
+
+        jTablelista.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTablelista);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,17 +117,17 @@ public class listaQuartos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCadastroNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastroNovoActionPerformed
-        quartos tela = new quartos(this  );
+        servico tela = new servico(this);
         tela.setVisible(true);
     }//GEN-LAST:event_jButtonCadastroNovoActionPerformed
 
     private void jButtoneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtoneditarActionPerformed
         int linha = jTablelista.getSelectedRow();
         if (linha == -1) {
-            JOptionPane.showMessageDialog(null, "selecione um quarto para editar", "selecionar quartos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "selecione um serviço para editar", "selecionar serviço", JOptionPane.WARNING_MESSAGE);
         } else {
-            int idQuartos = controle.getListaquartos().get(linha).getId();
-            quartos telaCadastro = new quartos(this, idQuartos);
+            int idFuncionario = controle.getListaservico().get(linha).getId();
+            servico telaCadastro = new servico(this, idFuncionario);
             telaCadastro.setVisible(true);
         }
     }//GEN-LAST:event_jButtoneditarActionPerformed
@@ -134,13 +135,13 @@ public class listaQuartos extends javax.swing.JFrame {
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
         int linha = jTablelista.getSelectedRow();
         if (linha == -1) {
-            JOptionPane.showMessageDialog(null, "selecione um quarto para remove-lo", "selecionar quartos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "selecione um funcionario para remove-lo", "selecionar serviço", JOptionPane.WARNING_MESSAGE);
         } else {
-            Quartos cli = controle.getListaquartos().get(linha);
+            Servico ser = controle.getListaservico().get(linha);
             int opcao = JOptionPane.showConfirmDialog(null,
-                "Voce tem certeza que deseja remover o quarto ? " + cli.getTipo(),
+                "Voce tem certeza que deseja remover o serviço ? " + ser.getTipo(),
                 "Corfirmar Remoçao", JOptionPane.YES_NO_CANCEL_OPTION);
-            if (opcao == 0 && controle.remover(cli)) {
+            if (opcao == 0 && controle.remover(ser)) {
                 atualizarTabela();
             }
         }

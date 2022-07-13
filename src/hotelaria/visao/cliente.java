@@ -166,9 +166,13 @@ public class cliente extends javax.swing.JFrame {
             controle.getCliente().setNome(jTextFieldnome.getText());
             controle.getCliente().setCpf(jTextFieldcpf.getText());
             controle.getCliente().setRg(jTextFieldrg.getText());
+            controle.getCliente().setTelefone(jTextFieldtelefone.getText());
 
+            int dia = Integer.parseInt(jComboBoxdia.getSelectedItem().toString());
+            int mes = Integer.parseInt(jComboBoxmes.getSelectedItem().toString());
+            int ano = Integer.parseInt(jComboBoxano.getSelectedItem().toString());
             Calendar cal = Calendar.getInstance();
-            cal.set(2022, 1, 1);
+            cal.set(ano, mes, dia);
             controle.getCliente().setData_nasc(cal.getTime());
             if(controle.salvar()){
                 JOptionPane.showMessageDialog(null, "exito em salvar o cadastro\n" , "Erro", JOptionPane.INFORMATION_MESSAGE);

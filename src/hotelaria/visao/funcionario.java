@@ -208,10 +208,14 @@ public class funcionario extends javax.swing.JFrame {
             controle.getFuncionario().setNome(jTextFieldnome.getText());
             controle.getFuncionario().setCpf(jTextFieldcpf.getText());
             controle.getFuncionario().setRg(jTextFieldrg.getText());
+            controle.getFuncionario().setTelefone(jTextFieldtelefone.getText());
             controle.getFuncionario().setCargo(jTextFieldCargo.getText());
             controle.getFuncionario().setCtps(jTextFieldCtps.getText());
+            int dia = Integer.parseInt(jComboBoxdia.getSelectedItem().toString());
+            int mes = Integer.parseInt(jComboBoxmes.getSelectedItem().toString());
+            int ano = Integer.parseInt(jComboBoxano.getSelectedItem().toString());
             Calendar cal = Calendar.getInstance();
-            cal.set(2022, 1, 1);
+            cal.set(ano, mes, dia);
             controle.getFuncionario().setData_nasc(cal.getTime());
             if(controle.salvar()){
                 JOptionPane.showMessageDialog(null, "exito em salvar o cadastro\n" , "Erro", JOptionPane.INFORMATION_MESSAGE);

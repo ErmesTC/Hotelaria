@@ -13,7 +13,7 @@ public class DaoFuncionario extends DAO {
 
         try {
 
-            String sql = "select * from cliente";
+            String sql = "select * from funcionario";
             ResultSet rs = consultaSQL(sql);
             while (rs.next()) {
                 Funcionario Funcionario = new Funcionario();

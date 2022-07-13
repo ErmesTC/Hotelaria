@@ -53,7 +53,7 @@ public class DaoCliente extends DAO {
                 cliente.setCpf(rs.getString("cpf"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setRg(rs.getString("rg"));
-                cliente.setTelefone(rs.getString("email"));
+                cliente.setTelefone(rs.getString("telefone"));
                 cliente.setData_nasc(rs.getDate("data_nasc"));
 
             }

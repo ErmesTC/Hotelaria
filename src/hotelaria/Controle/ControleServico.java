@@ -1,6 +1,8 @@
 package hotelaria.Controle;
 
+import hotelaria.DAO.DaoQuartos;
 import hotelaria.DAO.DaoServico;
+import hotelaria.Quartos;
 import hotelaria.Servico;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -11,6 +13,8 @@ public class ControleServico {
     private Servico servico;
     private ArrayList<Servico> listaservico;
     private DaoServico dao;
+    private ArrayList<Quartos> listaquarto;
+    private DaoQuartos daoq;
     private boolean editarCadastro = false;
     private boolean removerCadastro = false;
     
@@ -19,6 +23,8 @@ public class ControleServico {
         servico = new Servico();
         dao = new DaoServico();        
         listaservico = new ArrayList<>();
+        daoq = new DaoQuartos();
+        listaquarto = new ArrayList<>();
     }    
 
     
@@ -52,6 +58,17 @@ public class ControleServico {
         }
     }
     
+     public ArrayList<Quartos> getListaquartos() {
+        return listaquarto;
+    }
+    
+    public String[] getTipoQuarto(){
+        String [] cliente = new String[listaquarto.size()];
+        for (int i = 0; i < listaquarto.size(); i++) {
+            cliente[i] = listaquarto.get(i).getTipo();     
+        }
+        return cliente;
+    }
     public boolean remover(Servico servico) {
         return dao.remover(servico);       
     }

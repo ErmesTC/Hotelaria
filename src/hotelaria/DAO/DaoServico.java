@@ -14,7 +14,9 @@ public class DaoServico extends DAO {
 
         try {
 
-            String sql = "select * from servico";
+            String sql = "SELECT * FROM public.servico \n"
+                    + "left join funcionario as fun on fun.id = servico.funcionario_id \n"
+                    + "left join quartos as qt on qt.id = servico.quartos_id";
             ResultSet rs = consultaSQL(sql);
             while (rs.next()) {
                 Servico Servico = new Servico();
@@ -40,7 +42,9 @@ public class DaoServico extends DAO {
 
         try {
 
-            String sql = "select * from servico"
+            String sql = "SELECT * FROM public.servico \n"
+                    + "left join funcionario as fun on fun.id = servico.funcionario_id \n"
+                    + "left join quartos as qt on qt.id = servico.quartos_idF"
                     + " where servico.id = " + idServico;
             ResultSet rs = consultaSQL(sql);
             if (rs.next()) {
@@ -116,5 +120,4 @@ public class DaoServico extends DAO {
         }
     }
 
-
-    }
+}
