@@ -75,7 +75,7 @@ public class DaoEstadia extends DAO {
     public boolean atualizar(Estadia estadia) {
         try {
             String sql = "UPDATE public.estadia\n"
-                    + "	SET id=?, data_inicio=?, data_termino=?\n"
+                    + "	SET data_inicio=?, data_termino=?\n"
                     + "	WHERE  id = " + estadia.getId();
 
             PreparedStatement ps = criarPrepareStatement(sql);

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class DaoQuartos extends DAO {
 private DaoEstadia daoestadia;
+private DaoCliente daocliente;
 
     public DaoQuartos() {
         daoestadia = new DaoEstadia();
@@ -15,37 +16,45 @@ private DaoEstadia daoestadia;
 
 
     public ArrayList<Quartos> carregarQuartos() {
-        ArrayList<Quartos> quartos = new ArrayList<>();
+        ArrayList<Quartos> Quartos = new ArrayList<>();
 
         try {
 
             String sql = "select * from quartos "
-                    + " left join estadia as est on est.id = quartos.estadia_id";
+                    + " left join estadia as est on est.id = quartos.estadia_id "
+                    + " left join cliente as cli on cli.id = quartos.cliente_id ";
             ResultSet rs = consultaSQL(sql);
             while (rs.next()) {
-                Quartos Quartos = new Quartos();
-                Quartos.setId(rs.getInt("id"));
-                Quartos.setTipo(rs.getString("tipo"));
-                Quartos.setValor(rs.getString("valor"));
-                Quartos.setOcupados(rs.getString("ocupados"));
-                Quartos.setN_camas(rs.getString("n_camas"));
-                Quartos.getCliente().setId(rs.getInt("cliente_id"));
-                if (rs.getObject("estadia_id", Integer.class) != null) {
-                    Quartos.getEstadia().setId(rs.getInt("estadia_id"));
-                    Quartos.getEstadia().setData_inicio(rs.getDate("data_inicio"));
-                    Quartos.getEstadia().setData_termino(rs.getDate("data_termino"));
+                Quartos quartos = new Quartos();
+                quartos.setId(rs.getInt("id"));
+                quartos.setTipo(rs.getString("tipo"));
+                quartos.setValor(rs.getString("valor"));
+                quartos.setOcupados(rs.getString("ocupados"));
+                quartos.setN_camas(rs.getString("n_camas"));
+                if (rs.getObject("cliente_id", Integer.class) != null) {
+                    quartos.getCliente().setId(rs.getInt("cliente_id"));                  
+                    quartos.getCliente().setNome(rs.getString("nome"));
+                    quartos.getCliente().setCpf(rs.getString("cpf"));
+                    quartos.getCliente().setRg(rs.getString("rg"));
+                    quartos.getCliente().setTelefone(rs.getString("telefone"));
+                    quartos.getCliente().setData_nasc(rs.getDate("data_nasc"));
                 }
-                Quartos.getReserva().setId(rs.getInt("reserva_id"));
+                if (rs.getObject("estadia_id", Integer.class) != null) {
+                    quartos.getEstadia().setId(rs.getInt("estadia_id"));
+                    quartos.getEstadia().setData_inicio(rs.getDate("data_inicio"));
+                    quartos.getEstadia().setData_termino(rs.getDate("data_termino"));
+                }
+                quartos.getReserva().setId(rs.getInt("reserva_id"));
                 
                 
 
-                quartos.add(Quartos);
+                Quartos.add(quartos);
 
             }
         } catch (SQLException ex) {
             System.out.println("Erro" + ex.getMessage());
         }
-        return quartos;
+        return Quartos;
 
     }
 
@@ -56,6 +65,7 @@ private DaoEstadia daoestadia;
 
             String sql = "select * from quartos"
                     + " left join estadia as est on est.id = quartos.estadia_id "
+                    + " left join cliente as cli on cli.id = quartos.cliente_id "
                     + " where quartos.id = " + idQuartos;
             ResultSet rs = consultaSQL(sql);
             if (rs.next()) {
@@ -68,6 +78,10 @@ private DaoEstadia daoestadia;
                 if (rs.getObject("cliente_id", Integer.class) != null) {
                     quartos.getCliente().setId(rs.getInt("cliente_id"));                  
                     quartos.getCliente().setNome(rs.getString("nome"));
+                    quartos.getCliente().setCpf(rs.getString("cpf"));
+                    quartos.getCliente().setRg(rs.getString("rg"));
+                    quartos.getCliente().setTelefone(rs.getString("telefone"));
+                    quartos.getCliente().setData_nasc(rs.getDate("data_nasc"));
                     
                 }
                 if (rs.getObject("estadia_id", Integer.class) != null) {
@@ -88,8 +102,8 @@ private DaoEstadia daoestadia;
     public boolean salvar(Quartos quartos) {
         try {
             String sql = "INSERT INTO public.quartos(\n"
-                    + "	id, tipo, ocupados, n_camas, valor, estadia_id, cliente_id, reserva_id)\n"
-                    + "	VALUES (?, ?, ?, ?, ?, ?, ? , ?)";
+                    + "	id, tipo, ocupados, n_camas, valor, estadia_id, cliente_id)\n"
+                    + "	VALUES (?, ?, ?, ?, ?, ?, ? )";
             PreparedStatement ps = criarPrepareStatement(sql);
             quartos.setId(gerarProximoId("quartos"));
             ps.setInt(1, quartos.getId());
@@ -97,12 +111,26 @@ private DaoEstadia daoestadia;
             ps.setString(3, quartos.getOcupados());
             ps.setString(4, quartos.getN_camas());
             ps.setString(5, quartos.getValor());
-            if (!daoestadia.salvar(quartos.getEstadia())){
-                return false;
+            if (quartos.getEstadia()!= null && quartos.getEstadia().getId() == null || quartos.getEstadia().getId() == 0) {
+                daoestadia.salvar(quartos.getEstadia());
+
+                if (quartos.getEstadia()!= null) {
+                    ps.setInt(6, quartos.getEstadia().getId());
+                }
+            } else {
+                ps.setObject(6, null);
             }
-            ps.setInt(6, quartos.getEstadia().getId());
-            ps.setInt(7, quartos.getCliente().getId());
-            ps.setInt(8, quartos.getReserva().getId());
+            if (quartos.getCliente()!= null && quartos.getCliente().getId() == null || quartos.getCliente().getId() == 0) {
+                daocliente.salvar(quartos.getCliente());
+
+                if (quartos.getEstadia()!= null) {
+                    ps.setInt(7, quartos.getCliente().getId());
+                }
+            } else {
+                ps.setObject(7, null);
+            }
+            
+            //ps.setInt(8, quartos.getReserva().getId());
 
             ps.executeUpdate();
             return true;
@@ -115,7 +143,7 @@ private DaoEstadia daoestadia;
     public boolean atualizar(Quartos quartos) {
         try {
             String sql = "UPDATE public.quartos\n"
-                    + "	SET  tipo=?, ocupados=?, n_camas=?, valor=?, estadia_id=?, cliente_id=?, reserva_id=?\n"
+                    + "	SET  tipo=?, ocupados=?, n_camas=?, valor=?, estadia_id=?, cliente_id=?\n"
                     + "	WHERE id = " + quartos.getId();
 
             PreparedStatement ps = criarPrepareStatement(sql);
@@ -123,9 +151,23 @@ private DaoEstadia daoestadia;
             ps.setString(2, quartos.getOcupados());
             ps.setString(3, quartos.getN_camas());
             ps.setString(4, quartos.getValor());
-            ps.setInt(5, quartos.getEstadia().getId());
-            ps.setInt(6, quartos.getCliente().getId());
-            ps.setInt(7, quartos.getReserva().getId());
+            if (quartos.getEstadia()!= null){
+                if(quartos.getEstadia().getId() != null){
+                    daoestadia.atualizar(quartos.getEstadia());
+                }
+                else{
+                    daoestadia.salvar(quartos.getEstadia());
+                }
+                ps.setInt(5, quartos.getEstadia().getId());
+            } else {
+                ps.setObject(5, null);
+            }
+            if (quartos.getCliente()!= null && quartos.getCliente().getId() != null) {
+                ps.setInt(6, quartos.getCliente().getId());
+            } else {
+                ps.setObject(6, null);
+            }
+            //ps.setInt(7, quartos.getReserva().getId());
             
            
 

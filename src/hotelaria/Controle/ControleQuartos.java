@@ -21,10 +21,11 @@ public class ControleQuartos {
 
     public ControleQuartos() {
         quartos = new Quartos();
-        dao = new DaoQuartos();        
-        listaquartos = new ArrayList<>();
-        listacliente = new ArrayList<>();
+        dao = new DaoQuartos(); 
         daoc = new DaoCliente();
+        listaquartos = new ArrayList<>();
+        listacliente = daoc.carregarCliente();
+        
     }    
 
     

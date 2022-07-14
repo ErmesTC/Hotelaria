@@ -42,7 +42,7 @@ public class quartos extends javax.swing.JFrame {
         jTextFieldValor.setText(controle.getQuartos().getValor());
         jTextFieldCamas.setText(controle.getQuartos().getN_camas());
         jComboBox1.setSelectedItem(controle.getQuartos().getOcupados());        
-        jComboBoxClienteID.setSelectedItem(controle.getNomeCliente());
+        jComboBoxClienteID.setSelectedItem(controle.getQuartos().getCliente().getNome());
 
         
         Calendar cal = Calendar.getInstance();
@@ -57,9 +57,9 @@ public class quartos extends javax.swing.JFrame {
         int diaf = cal.get(Calendar.DAY_OF_MONTH);
         int mesf = cal.get(Calendar.MONTH)+1;
         int anof = cal.get(Calendar.YEAR);
-        jComboBoxdia.setSelectedItem(""+diaf);
-        jComboBoxmes.setSelectedItem(""+mesf);
-        jComboBoxano.setSelectedItem(""+anof);
+        jComboBoxdiaF.setSelectedItem(""+diaf);
+        jComboBoxmesF.setSelectedItem(""+mesf);
+        jComboBoxanoF.setSelectedItem(""+anof);
     }
 
     @SuppressWarnings("unchecked")
@@ -237,16 +237,17 @@ public class quartos extends javax.swing.JFrame {
             controle.getQuartos().setTipo(jTextFieldTipo.getText());
             controle.getQuartos().setValor(jTextFieldValor.getText());
             controle.getQuartos().setN_camas(jTextFieldCamas.getText());
+            controle.getQuartos().setOcupados(jComboBox1.getSelectedItem().toString());
             int posicao = jComboBoxClienteID.getSelectedIndex();
             controle.getQuartos().setCliente(controle.getListacliente().get(posicao));
-            int dia = Integer.parseInt(jComboBoxdia.getSelectedItem().toString());
-            int mes = Integer.parseInt(jComboBoxmes.getSelectedItem().toString());
-            int ano = Integer.parseInt(jComboBoxano.getSelectedItem().toString());
             Calendar cal = Calendar.getInstance();
+            int dia = Integer.parseInt(jComboBoxdia.getSelectedItem().toString());
+            int mes = Integer.parseInt(jComboBoxmes.getSelectedItem().toString())-1;
+            int ano = Integer.parseInt(jComboBoxano.getSelectedItem().toString());          
             cal.set(ano, mes, dia);
             controle.getQuartos().getEstadia().setData_inicio(cal.getTime());
             int diaF = Integer.parseInt(jComboBoxdiaF.getSelectedItem().toString());
-            int mesF = Integer.parseInt(jComboBoxmesF.getSelectedItem().toString());
+            int mesF = Integer.parseInt(jComboBoxmesF.getSelectedItem().toString())-1;
             int anoF = Integer.parseInt(jComboBoxanoF.getSelectedItem().toString());
             cal.set(anoF, mesF, diaF);
             controle.getQuartos().getEstadia().setData_termino(cal.getTime());
