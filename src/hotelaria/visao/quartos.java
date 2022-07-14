@@ -41,16 +41,25 @@ public class quartos extends javax.swing.JFrame {
         jTextFieldTipo.setText(controle.getQuartos().getTipo());
         jTextFieldValor.setText(controle.getQuartos().getValor());
         jTextFieldCamas.setText(controle.getQuartos().getN_camas());
-        jComboBox1.setSelectedItem(controle.getQuartos().getOcupados());
-        if (controle.getQuartos().getOcupados().equalsIgnoreCase("Ocupado")) {
-            jComboBoxClienteID.setSelectedItem(controle.getQuartos().getCliente().getNome());
-        }
-        jComboBoxdia.setSelectedItem(controle.getQuartos().getEstadia().getData_inicio());
-        jComboBoxmes.setSelectedItem(controle.getQuartos().getEstadia().getData_inicio());
-        jComboBoxano.setSelectedItem(controle.getQuartos().getEstadia().getData_inicio());
-        jComboBoxdiaF.setSelectedItem(controle.getQuartos().getEstadia().getData_termino());
-        jComboBoxmesF.setSelectedItem(controle.getQuartos().getEstadia().getData_termino());
-        jComboBoxanoF.setSelectedItem(controle.getQuartos().getEstadia().getData_termino());
+        jComboBox1.setSelectedItem(controle.getQuartos().getOcupados());        
+        jComboBoxClienteID.setSelectedItem(controle.getNomeCliente());
+
+        
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(controle.getQuartos().getEstadia().getData_inicio());
+        int dia = cal.get(Calendar.DAY_OF_MONTH);
+        int mes = cal.get(Calendar.MONTH)+1;
+        int ano = cal.get(Calendar.YEAR);
+        jComboBoxdia.setSelectedItem(""+dia);
+        jComboBoxmes.setSelectedItem(""+mes);
+        jComboBoxano.setSelectedItem(""+ano);
+        cal.setTime(controle.getQuartos().getEstadia().getData_termino());
+        int diaf = cal.get(Calendar.DAY_OF_MONTH);
+        int mesf = cal.get(Calendar.MONTH)+1;
+        int anof = cal.get(Calendar.YEAR);
+        jComboBoxdia.setSelectedItem(""+diaf);
+        jComboBoxmes.setSelectedItem(""+mesf);
+        jComboBoxano.setSelectedItem(""+anof);
     }
 
     @SuppressWarnings("unchecked")

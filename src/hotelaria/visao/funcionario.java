@@ -33,9 +33,14 @@ public class funcionario extends javax.swing.JFrame {
         jTextFieldcpf.setText(controle.getFuncionario().getCpf());
         jTextFieldrg.setText(controle.getFuncionario().getRg());
         jTextFieldtelefone.setText(controle.getFuncionario().getTelefone());
-        jComboBoxdia.setSelectedItem(controle.getFuncionario().getData_nasc());
-        jComboBoxmes.setSelectedItem(controle.getFuncionario().getData_nasc());
-        jComboBoxano.setSelectedItem(controle.getFuncionario().getData_nasc());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(controle.getFuncionario().getData_nasc());
+        int dia = cal.get(Calendar.DAY_OF_MONTH);
+        int mes = cal.get(Calendar.MONTH)+1;
+        int ano = cal.get(Calendar.YEAR);
+        jComboBoxdia.setSelectedItem(""+dia);
+        jComboBoxmes.setSelectedItem(""+mes);
+        jComboBoxano.setSelectedItem(""+ano);
         jTextFieldCargo.setText(controle.getFuncionario().getCargo());
         jTextFieldCtps.setText(controle.getFuncionario().getCtps());
     
@@ -212,7 +217,7 @@ public class funcionario extends javax.swing.JFrame {
             controle.getFuncionario().setCargo(jTextFieldCargo.getText());
             controle.getFuncionario().setCtps(jTextFieldCtps.getText());
             int dia = Integer.parseInt(jComboBoxdia.getSelectedItem().toString());
-            int mes = Integer.parseInt(jComboBoxmes.getSelectedItem().toString());
+            int mes = Integer.parseInt(jComboBoxmes.getSelectedItem().toString())-1;
             int ano = Integer.parseInt(jComboBoxano.getSelectedItem().toString());
             Calendar cal = Calendar.getInstance();
             cal.set(ano, mes, dia);

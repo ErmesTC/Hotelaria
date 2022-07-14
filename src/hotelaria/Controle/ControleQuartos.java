@@ -59,7 +59,7 @@ public class ControleQuartos {
     }
     
     public ArrayList<Cliente> getListacliente() {
-        return listacliente;
+        return listacliente;        
     }
     
     public String[] getNomeCliente(){

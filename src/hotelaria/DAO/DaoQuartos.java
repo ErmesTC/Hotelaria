@@ -7,13 +7,20 @@ import java.util.ArrayList;
 
 
 public class DaoQuartos extends DAO {
+private DaoEstadia daoestadia;
+
+    public DaoQuartos() {
+        daoestadia = new DaoEstadia();
+    }
+
 
     public ArrayList<Quartos> carregarQuartos() {
         ArrayList<Quartos> quartos = new ArrayList<>();
 
         try {
 
-            String sql = "select * from quartos";
+            String sql = "select * from quartos "
+                    + " left join estadia as est on est.id = quartos.estadia_id";
             ResultSet rs = consultaSQL(sql);
             while (rs.next()) {
                 Quartos Quartos = new Quartos();
@@ -23,7 +30,11 @@ public class DaoQuartos extends DAO {
                 Quartos.setOcupados(rs.getString("ocupados"));
                 Quartos.setN_camas(rs.getString("n_camas"));
                 Quartos.getCliente().setId(rs.getInt("cliente_id"));
-                Quartos.getEstadia().setId(rs.getInt("estadia_id"));
+                if (rs.getObject("estadia_id", Integer.class) != null) {
+                    Quartos.getEstadia().setId(rs.getInt("estadia_id"));
+                    Quartos.getEstadia().setData_inicio(rs.getDate("data_inicio"));
+                    Quartos.getEstadia().setData_termino(rs.getDate("data_termino"));
+                }
                 Quartos.getReserva().setId(rs.getInt("reserva_id"));
                 
                 
@@ -44,6 +55,7 @@ public class DaoQuartos extends DAO {
         try {
 
             String sql = "select * from quartos"
+                    + " left join estadia as est on est.id = quartos.estadia_id "
                     + " where quartos.id = " + idQuartos;
             ResultSet rs = consultaSQL(sql);
             if (rs.next()) {
@@ -53,8 +65,16 @@ public class DaoQuartos extends DAO {
                 quartos.setOcupados(rs.getString("ocupados"));
                 quartos.setN_camas(rs.getString("n_camas"));
                 quartos.setValor(rs.getString("valor"));
-                quartos.getCliente().setId(rs.getInt("cliente_id"));
-                quartos.getEstadia().setId(rs.getInt("estadia_id"));
+                if (rs.getObject("cliente_id", Integer.class) != null) {
+                    quartos.getCliente().setId(rs.getInt("cliente_id"));                  
+                    quartos.getCliente().setNome(rs.getString("nome"));
+                    
+                }
+                if (rs.getObject("estadia_id", Integer.class) != null) {
+                    quartos.getEstadia().setId(rs.getInt("estadia_id"));
+                    quartos.getEstadia().setData_inicio(rs.getDate("data_inicio"));
+                    quartos.getEstadia().setData_termino(rs.getDate("data_termino"));
+                }
                 quartos.getReserva().setId(rs.getInt("reserva_id"));
 
             }
@@ -77,6 +97,9 @@ public class DaoQuartos extends DAO {
             ps.setString(3, quartos.getOcupados());
             ps.setString(4, quartos.getN_camas());
             ps.setString(5, quartos.getValor());
+            if (!daoestadia.salvar(quartos.getEstadia())){
+                return false;
+            }
             ps.setInt(6, quartos.getEstadia().getId());
             ps.setInt(7, quartos.getCliente().getId());
             ps.setInt(8, quartos.getReserva().getId());

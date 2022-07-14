@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class DaoFuncionario extends DAO {
 
@@ -82,7 +83,7 @@ public class DaoFuncionario extends DAO {
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            System.out.println("falha ao salvar Cliente\n" + ex.getMessage());
+            System.out.println("falha ao salvar Funcionario\n" + ex.getMessage());
             return false;
         }
     }
@@ -99,13 +100,14 @@ public class DaoFuncionario extends DAO {
             ps.setString(3, funcionario.getNome());
             ps.setString(4, funcionario.getCpf());
             ps.setString(5, funcionario.getRg());
-            ps.setString(6, funcionario.getTelefone());
-            ps.setDate(7, new java.sql.Date(funcionario.getData_nasc().getTime()));
+            ps.setDate(6, new java.sql.Date(funcionario.getData_nasc().getTime()));
+            ps.setString(7, funcionario.getTelefone());
+            
 
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("Falha ao editar cliente\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Falha ao editar funcionario ","Erro", JOptionPane.WARNING_MESSAGE);
 
         }
         return false;
