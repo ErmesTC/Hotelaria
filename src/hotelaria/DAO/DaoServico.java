@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 public class DaoServico extends DAO {
 
+    private DaoQuartos daoquarto;
+    private DaoFuncionario daof;
+
     public ArrayList<Servico> carregarServico() {
         ArrayList<Servico> servico = new ArrayList<>();
 
@@ -24,8 +27,25 @@ public class DaoServico extends DAO {
                 Servico.setTipo(rs.getString("tipo"));
                 Servico.setValor(rs.getString("valor"));
                 Servico.setDescricao(rs.getString("descricao"));
-                Servico.getQuartos().setId(rs.getInt("quartos_id"));
-                Servico.getFuncionario().setId(rs.getInt("funcionario_id"));
+                if (rs.getObject("quartos_id", Integer.class) != null) {
+                    Servico.getQuartos().setId(rs.getInt("cliente_id"));
+                    Servico.getQuartos().setTipo(rs.getString("tipo"));
+                    Servico.getQuartos().setOcupados(rs.getString("ocupados"));
+                    Servico.getQuartos().setN_camas(rs.getString("n_camas"));
+                    Servico.getQuartos().setValor(rs.getString("valor"));
+                    Servico.getQuartos().setNumero(rs.getString("numero"));
+                }
+                if (rs.getObject("funcionario_id", Integer.class) != null) {
+                    Servico.getFuncionario().setId(rs.getInt("cliente_id"));
+                    Servico.getFuncionario().setNome(rs.getString("nome"));
+                    Servico.getFuncionario().setCpf(rs.getString("cpf"));
+                    Servico.getFuncionario().setRg(rs.getString("rg"));
+                    Servico.getFuncionario().setCargo(rs.getString("cargo"));
+                    Servico.getFuncionario().setData_nasc(rs.getDate("data_nasc"));
+                    Servico.getFuncionario().setCtps(rs.getString("ctps"));
+                    Servico.getFuncionario().setTelefone(rs.getString("telefone"));
+
+                }
 
                 servico.add(Servico);
 
@@ -75,8 +95,25 @@ public class DaoServico extends DAO {
             ps.setString(2, servico.getTipo());
             ps.setString(3, servico.getValor());
             ps.setString(4, servico.getDescricao());
-            ps.setInt(5, servico.getQuartos().getId());
-            ps.setInt(6, servico.getFuncionario().getId());
+            if (servico.getQuartos() != null && servico.getQuartos().getId() == null || servico.getQuartos().getId() == 0) {
+                daoquarto.salvar(servico.getQuartos());
+
+                if (servico.getQuartos() != null) {
+                    ps.setInt(5, servico.getQuartos().getId());
+                }
+            } else {
+                ps.setObject(5, null);
+            }
+        
+            if (servico.getFuncionario() != null && servico.getFuncionario().getId() == null || servico.getFuncionario().getId() == 0) {
+                daof.salvar(servico.getFuncionario());
+
+                if (servico.getQuartos() != null) {
+                    ps.setInt(6, servico.getFuncionario().getId());
+                }
+            } else {
+                ps.setObject(6, null);
+            }
 
             ps.executeUpdate();
             return true;
@@ -96,8 +133,26 @@ public class DaoServico extends DAO {
             ps.setString(1, servico.getTipo());
             ps.setString(2, servico.getValor());
             ps.setString(3, servico.getDescricao());
-            ps.setInt(4, servico.getQuartos().getId());
-            ps.setInt(5, servico.getFuncionario().getId());
+            if (servico.getQuartos() != null) {
+                if (servico.getQuartos().getId() != null) {
+                    daoquarto.atualizar(servico.getQuartos());
+                } else {
+                    daoquarto.salvar(servico.getQuartos());
+                }
+                ps.setInt(4, servico.getQuartos().getId());
+            } else {
+                ps.setObject(4, null);
+            }
+            if (servico.getFuncionario() != null) {
+                if (servico.getFuncionario().getId() != null) {
+                    daof.atualizar(servico.getFuncionario());
+                } else {
+                    daof.salvar(servico.getFuncionario());
+                }
+                ps.setInt(5, servico.getFuncionario().getId());
+            } else {
+                ps.setObject(5, null);
+            }
 
             ps.executeUpdate();
             return true;

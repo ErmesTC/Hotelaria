@@ -4,6 +4,8 @@ package hotelaria.visao;
 import hotelaria.lista.listaCliente;
 import hotelaria.lista.listaFuncionario;
 import hotelaria.lista.listaQuartos;
+import hotelaria.lista.listaReserva;
+import hotelaria.lista.listaServico;
 
 
 public class main extends javax.swing.JFrame {
@@ -11,6 +13,8 @@ public class main extends javax.swing.JFrame {
     private listaFuncionario listafunc;
     private listaCliente listacli;
     private listaQuartos listaqua;
+    private listaServico listaser;
+    private listaReserva listares;
     
     public main() {
         initComponents();
@@ -26,6 +30,8 @@ public class main extends javax.swing.JFrame {
         jButtonFuncionario = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButtonQuartos = new javax.swing.JButton();
+        jButtonServico = new javax.swing.JButton();
+        jButtonReserva = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,22 +58,38 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        jButtonServico.setText("Servico");
+        jButtonServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonServicoActionPerformed(evt);
+            }
+        });
+
+        jButtonReserva.setText("Reserva");
+        jButtonReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReservaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonQuartos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(68, 68, 68)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                        .addComponent(jButtonQuartos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButtonServico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonFuncionario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                        .addComponent(jButtonReserva)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -77,9 +99,13 @@ public class main extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCliente)
-                    .addComponent(jButtonFuncionario)
-                    .addComponent(jButtonQuartos))
-                .addContainerGap(236, Short.MAX_VALUE))
+                    .addComponent(jButtonFuncionario))
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonQuartos)
+                    .addComponent(jButtonServico)
+                    .addComponent(jButtonReserva))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         pack();
@@ -100,6 +126,16 @@ public class main extends javax.swing.JFrame {
         listaqua.setVisible(true);
     }//GEN-LAST:event_jButtonQuartosActionPerformed
 
+    private void jButtonServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonServicoActionPerformed
+        listaser = new listaServico();
+        listaser.setVisible(true);
+    }//GEN-LAST:event_jButtonServicoActionPerformed
+
+    private void jButtonReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReservaActionPerformed
+        listares = new listaReserva();
+        listares.setVisible(true);
+    }//GEN-LAST:event_jButtonReservaActionPerformed
+
     
     public static void main(String args[]) {
         
@@ -114,6 +150,8 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCliente;
     private javax.swing.JButton jButtonFuncionario;
     private javax.swing.JButton jButtonQuartos;
+    private javax.swing.JButton jButtonReserva;
+    private javax.swing.JButton jButtonServico;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,7 +1,9 @@
 package hotelaria.Controle;
 
+import hotelaria.DAO.DaoFuncionario;
 import hotelaria.DAO.DaoQuartos;
 import hotelaria.DAO.DaoServico;
+import hotelaria.Funcionario;
 import hotelaria.Quartos;
 import hotelaria.Servico;
 import java.util.ArrayList;
@@ -12,19 +14,23 @@ public class ControleServico {
     
     private Servico servico;
     private ArrayList<Servico> listaservico;
-    private DaoServico dao;
     private ArrayList<Quartos> listaquarto;
-    private DaoQuartos daoq;
+    private ArrayList<Funcionario> listafuncionario;
+    private DaoServico dao;
+    private DaoQuartos daoq;  
+    private DaoFuncionario daof;
     private boolean editarCadastro = false;
     private boolean removerCadastro = false;
     
 
     public ControleServico() {
         servico = new Servico();
-        dao = new DaoServico();        
-        listaservico = new ArrayList<>();
-        daoq = new DaoQuartos();
-        listaquarto = new ArrayList<>();
+        dao = new DaoServico();
+        daoq = new DaoQuartos();    
+        daof = new DaoFuncionario();
+        listaservico = new ArrayList<>();       
+        listaquarto = daoq.carregarQuartos();
+        listafuncionario = daof.carregarFuncionario();
     }    
 
     
@@ -65,7 +71,19 @@ public class ControleServico {
     public String[] getTipoQuarto(){
         String [] cliente = new String[listaquarto.size()];
         for (int i = 0; i < listaquarto.size(); i++) {
-            cliente[i] = listaquarto.get(i).getTipo();     
+            cliente[i] = listaquarto.get(i).getNumero();     
+        }
+        return cliente;
+    }
+    
+    public ArrayList<Funcionario> getListafuncionario() {
+        return listafuncionario;
+    }
+    
+    public String[] getNomeFuncionario(){
+        String [] cliente = new String[listafuncionario.size()];
+        for (int i = 0; i < listafuncionario.size(); i++) {
+            cliente[i] = listafuncionario.get(i).getNome();     
         }
         return cliente;
     }

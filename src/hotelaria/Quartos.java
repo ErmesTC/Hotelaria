@@ -8,14 +8,15 @@ public class Quartos {
     private String ocupados;
     private String n_camas;
     private String valor;
+    private String numero;
     private Estadia estadia;
     private Cliente cliente;
-    private Reserva reserva;
+    
 
     public Quartos() {
         estadia = new Estadia();
         cliente = new Cliente();
-        reserva = new Reserva();
+        
     }
 
     public Integer getId() {
@@ -74,12 +75,13 @@ public class Quartos {
         this.cliente = cliente;
     }
 
-    public Reserva getReserva() {
-        return reserva;
+
+    public String getNumero() {
+        return numero;
     }
 
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
     
     

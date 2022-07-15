@@ -82,13 +82,13 @@ public class ControleQuartos {
     public DefaultTableModel gerarTableModel(){
         carregarQuartos();
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("id");
-        model.addColumn("n_camas");
-        model.addColumn("ocupados");
+        model.addColumn("Número");
+        model.addColumn("Número de Camas");
+        model.addColumn("Status");
         for (int i = 0; i < listaquartos.size(); i++) {
             Quartos cli = listaquartos.get(i);
             Object[] dados = {
-                cli.getId(),
+                cli.getNumero(),
                 cli.getN_camas(),
                 cli.getOcupados()
                 
