@@ -41,7 +41,7 @@ public class listaServico extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Cadastro Cliente");
+        jLabel1.setText("Cadastro Servico");
 
         jButtonCadastroNovo.setText("cadastro novo");
         jButtonCadastroNovo.addActionListener(new java.awt.event.ActionListener() {

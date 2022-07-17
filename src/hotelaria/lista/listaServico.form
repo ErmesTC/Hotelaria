@@ -67,7 +67,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cadastro Cliente"/>
+        <Property name="text" type="java.lang.String" value="Cadastro Servico"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonCadastroNovo">

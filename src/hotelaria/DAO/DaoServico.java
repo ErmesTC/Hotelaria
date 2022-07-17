@@ -12,6 +12,13 @@ public class DaoServico extends DAO {
     private DaoQuartos daoquarto;
     private DaoFuncionario daof;
 
+    public DaoServico() {
+        daoquarto = new DaoQuartos();
+        daof = new DaoFuncionario();
+    }
+    
+    
+
     public ArrayList<Servico> carregarServico() {
         ArrayList<Servico> servico = new ArrayList<>();
 
@@ -28,7 +35,7 @@ public class DaoServico extends DAO {
                 Servico.setValor(rs.getString("valor"));
                 Servico.setDescricao(rs.getString("descricao"));
                 if (rs.getObject("quartos_id", Integer.class) != null) {
-                    Servico.getQuartos().setId(rs.getInt("cliente_id"));
+                    Servico.getQuartos().setId(rs.getInt("quartos_id"));
                     Servico.getQuartos().setTipo(rs.getString("tipo"));
                     Servico.getQuartos().setOcupados(rs.getString("ocupados"));
                     Servico.getQuartos().setN_camas(rs.getString("n_camas"));
@@ -36,7 +43,7 @@ public class DaoServico extends DAO {
                     Servico.getQuartos().setNumero(rs.getString("numeros"));
                 }
                 if (rs.getObject("funcionario_id", Integer.class) != null) {
-                    Servico.getFuncionario().setId(rs.getInt("cliente_id"));
+                    Servico.getFuncionario().setId(rs.getInt("funcionario_id"));
                     Servico.getFuncionario().setNome(rs.getString("nome"));
                     Servico.getFuncionario().setCpf(rs.getString("cpf"));
                     Servico.getFuncionario().setRg(rs.getString("rg"));
@@ -73,8 +80,25 @@ public class DaoServico extends DAO {
                 servico.setTipo(rs.getString("tipo"));
                 servico.setValor(rs.getString("valor"));
                 servico.setDescricao(rs.getString("descricao"));
-                servico.getQuartos().setId(rs.getInt("quartos_id"));
-                servico.getFuncionario().setId(rs.getInt("funcionario_id"));
+                if (rs.getObject("quartos_id", Integer.class) != null) {
+                    servico.getQuartos().setId(rs.getInt("quartos_id"));
+                    servico.getQuartos().setTipo(rs.getString("tipo"));
+                    servico.getQuartos().setOcupados(rs.getString("ocupados"));
+                    servico.getQuartos().setN_camas(rs.getString("n_camas"));
+                    servico.getQuartos().setValor(rs.getString("valor"));
+                    servico.getQuartos().setNumero(rs.getString("numeros"));
+                }
+                if (rs.getObject("funcionario_id", Integer.class) != null) {
+                    servico.getFuncionario().setId(rs.getInt("funcionario_id"));
+                    servico.getFuncionario().setNome(rs.getString("nome"));
+                    servico.getFuncionario().setCpf(rs.getString("cpf"));
+                    servico.getFuncionario().setRg(rs.getString("rg"));
+                    servico.getFuncionario().setCargo(rs.getString("cargo"));
+                    servico.getFuncionario().setData_nasc(rs.getDate("data_nasc"));
+                    servico.getFuncionario().setCtps(rs.getString("ctps"));
+                    servico.getFuncionario().setTelefone(rs.getString("telefone"));
+
+                }
 
             }
         } catch (SQLException e) {
@@ -126,7 +150,7 @@ public class DaoServico extends DAO {
     public boolean atualizar(Servico servico) {
         try {
             String sql = "UPDATE public.servico\n"
-                    + "	SET id=?, tipo=?, valor=?, descricao=?, quartos_id=?, funcionario_id=?\n"
+                    + "	SET tipo=?, valor=?, descricao=?, quartos_id=?, funcionario_id=?\n"
                     + "	WHERE  id = " + servico.getId();
 
             PreparedStatement ps = criarPrepareStatement(sql);
