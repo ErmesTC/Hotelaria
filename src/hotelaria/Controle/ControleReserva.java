@@ -103,11 +103,14 @@ public class ControleReserva {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("id");
         model.addColumn("quarto");
+        model.addColumn("cliente");
         for (int i = 0; i < listareserva.size(); i++) {
             Reserva cli = listareserva.get(i);
             Object[] dados = {
                 cli.getId(),
-                cli.getQuartos().getNumero()
+                cli.getQuartos().getNumero(),
+                cli.getCliente().getNome()
+                 
                 
             };
             model.addRow(dados);

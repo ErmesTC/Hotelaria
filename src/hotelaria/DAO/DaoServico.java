@@ -17,9 +17,9 @@ public class DaoServico extends DAO {
 
         try {
 
-            String sql = "SELECT * FROM public.servico \n"
-                    + "left join funcionario as fun on fun.id = servico.funcionario_id \n"
-                    + "left join quartos as qt on qt.id = servico.quartos_id";
+            String sql = "SELECT * FROM public.servico "
+                    + " left join funcionario as fun on fun.id = servico.funcionario_id "
+                    + " left join quartos as qt on qt.id = servico.quartos_id ";
             ResultSet rs = consultaSQL(sql);
             while (rs.next()) {
                 Servico Servico = new Servico();
@@ -33,7 +33,7 @@ public class DaoServico extends DAO {
                     Servico.getQuartos().setOcupados(rs.getString("ocupados"));
                     Servico.getQuartos().setN_camas(rs.getString("n_camas"));
                     Servico.getQuartos().setValor(rs.getString("valor"));
-                    Servico.getQuartos().setNumero(rs.getString("numero"));
+                    Servico.getQuartos().setNumero(rs.getString("numeros"));
                 }
                 if (rs.getObject("funcionario_id", Integer.class) != null) {
                     Servico.getFuncionario().setId(rs.getInt("cliente_id"));
@@ -64,7 +64,7 @@ public class DaoServico extends DAO {
 
             String sql = "SELECT * FROM public.servico \n"
                     + "left join funcionario as fun on fun.id = servico.funcionario_id \n"
-                    + "left join quartos as qt on qt.id = servico.quartos_idF"
+                    + "left join quartos as qt on qt.id = servico.quartos_id "
                     + " where servico.id = " + idServico;
             ResultSet rs = consultaSQL(sql);
             if (rs.next()) {
