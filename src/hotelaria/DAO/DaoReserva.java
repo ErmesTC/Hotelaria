@@ -28,7 +28,7 @@ public class DaoReserva extends DAO {
             String sql = "select * from reserva"
                     + " left join estadia as est on est.id = reserva.estadia_id "
                     + " left join cliente as cli on cli.id = reserva.cliente_id "
-                    + " left join quartos as qt on qt.id = reserva.quarto_id ";
+                    + " left join quartos as qt on qt.id = reserva.quartos_id ";
             ResultSet rs = consultaSQL(sql);
             while (rs.next()) {
                 Reserva Reserva = new Reserva();
@@ -71,7 +71,10 @@ public class DaoReserva extends DAO {
 
         try {
 
-            String sql = "select * from reserva"
+            String sql = "select * from reserva "
+                    + " left join estadia as est on est.id = reserva.estadia_id "
+                    + " left join cliente as cli on cli.id = reserva.cliente_id "
+                    + " left join quartos as qt on qt.id = reserva.quartos_id "
                     + " where reserva.id = " + idReserva;
             ResultSet rs = consultaSQL(sql);
             if (rs.next()) {

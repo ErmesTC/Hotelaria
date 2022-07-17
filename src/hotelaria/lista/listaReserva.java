@@ -37,7 +37,7 @@ public class listaReserva extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButtonCadastroNovo = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButtoneditar.setText("Editar");
         jButtoneditar.addActionListener(new java.awt.event.ActionListener() {
@@ -66,7 +66,7 @@ public class listaReserva extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTablelista);
 
-        jLabel1.setText("Cadastro Quartos");
+        jLabel1.setText("Cadastro Reserva");
 
         jButtonCadastroNovo.setText("cadastro novo");
         jButtonCadastroNovo.addActionListener(new java.awt.event.ActionListener() {

@@ -29,7 +29,7 @@ public class DaoQuartos extends DAO {
                 quartos.setValor(rs.getString("valor"));
                 quartos.setOcupados(rs.getString("ocupados"));
                 quartos.setN_camas(rs.getString("n_camas"));
-                quartos.setNumero(rs.getString("numero"));
+                quartos.setNumero(rs.getString("numeros"));
                 
                 
                 
@@ -60,7 +60,7 @@ public class DaoQuartos extends DAO {
                 quartos.setOcupados(rs.getString("ocupados"));
                 quartos.setN_camas(rs.getString("n_camas"));
                 quartos.setValor(rs.getString("valor"));
-                quartos.setNumero(rs.getString("numero"));
+                quartos.setNumero(rs.getString("numeros"));
                 
 
             }
@@ -74,7 +74,7 @@ public class DaoQuartos extends DAO {
     public boolean salvar(Quartos quartos) {
         try {
             String sql = "INSERT INTO public.quartos(\n"
-                    + "	id, tipo, ocupados, n_camas, valor, numero)\n"
+                    + "	id, tipo, ocupados, n_camas, valor, numeros)\n"
                     + "	VALUES (?, ?, ?, ?, ?, ? )";
             PreparedStatement ps = criarPrepareStatement(sql);
             quartos.setId(gerarProximoId("quartos"));
@@ -97,7 +97,7 @@ public class DaoQuartos extends DAO {
     public boolean atualizar(Quartos quartos) {
         try {
             String sql = "UPDATE public.quartos\n"
-                    + "	SET  tipo=?, ocupados=?, n_camas=?, valor=?, numero=?\n"
+                    + "	SET  tipo=?, ocupados=?, n_camas=?, valor=?, numeros=?\n"
                     + "	WHERE id = " + quartos.getId();
 
             PreparedStatement ps = criarPrepareStatement(sql);

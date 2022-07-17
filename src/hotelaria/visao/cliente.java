@@ -65,7 +65,7 @@ public class cliente extends javax.swing.JFrame {
         butonsave = new javax.swing.JButton();
         telefone = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabeldata_nasc.setText("data de nascimento");
 

@@ -66,7 +66,7 @@ public class servico extends javax.swing.JFrame {
         jComboBoxFuncionario = new javax.swing.JComboBox<>();
         Funcionario = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         cpf.setText("Valor");
 

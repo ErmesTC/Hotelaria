@@ -38,7 +38,7 @@ public class listaFuncionario extends javax.swing.JFrame {
         jButtoneditar = new javax.swing.JButton();
         jButtonRemover = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTablelista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

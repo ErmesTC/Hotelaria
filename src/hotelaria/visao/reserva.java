@@ -76,7 +76,7 @@ public class reserva extends javax.swing.JFrame {
         jComboBoxNumero = new javax.swing.JComboBox<>();
         butonsave = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabeldata_nasc.setText("Data Inicio");
 
@@ -185,6 +185,8 @@ public class reserva extends javax.swing.JFrame {
             
             int posicao = jComboBoxClienteID.getSelectedIndex();
             controle.getReserva().setCliente(controle.getListacliente().get(posicao));
+            posicao = jComboBoxNumero.getSelectedIndex();
+            controle.getReserva().setQuartos(controle.getListaquartos().get(posicao));
             Calendar cal = Calendar.getInstance();
             int dia = Integer.parseInt(jComboBoxdia.getSelectedItem().toString());
             int mes = Integer.parseInt(jComboBoxmes.getSelectedItem().toString())-1;
