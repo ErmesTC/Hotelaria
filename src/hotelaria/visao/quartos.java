@@ -163,7 +163,13 @@ public class quartos extends javax.swing.JFrame {
             controle.getQuartos().setN_camas(jTextFieldCamas.getText());
             controle.getQuartos().setOcupados(jComboBox1.getSelectedItem().toString());
             controle.getQuartos().setNumero(jTextFieldNumero.getText());
-            
+             if (controle.salvar()) {
+                JOptionPane.showMessageDialog(null, "exito em salvar o cadastro\n", "Erro", JOptionPane.INFORMATION_MESSAGE);
+                setVisible(false);
+                if (telalistaquartos != null) {
+                    telalistaquartos.atualizarTabela();
+                }
+            }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha ao cadastrar cliente\n" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
